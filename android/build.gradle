@@ -143,6 +143,7 @@ afterEvaluate {
         publications {
             maven(MavenPublication) {
                 def packageJson = new groovy.json.JsonSlurper().parseText(file('../package.json').text)
+                print "packageJson: " + packageJson
                 groupId = 'com.exponea'
                 artifactId = packageJson.name
                 version = packageJson.version
