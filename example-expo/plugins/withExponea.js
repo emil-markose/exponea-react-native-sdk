@@ -7,6 +7,7 @@ const {
   withExponeaAppDelegate = require("./withExponeaAppDelegate"),
   withExponeaIosAppDelegateH = require("./withExponeaIosAppDelegateH"),
   withExponeaAndroidManifest = require("./withExponeaAndroidManifest"),
+  withCustomDebugKeystore = require("./withCustomDebugKeystore"),
   
 } = require("@expo/config-plugins");
 function withExponea(config) {
@@ -17,6 +18,7 @@ function withExponea(config) {
     withExponeaAppDelegate,
     withExponeaAndroidMessageService,
     withExponeaIosAppDelegateH,
+    withCustomDebugKeystore,
   ]);
 }
 

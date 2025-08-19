@@ -36,7 +36,6 @@ export default ({config}: ConfigContext): ExpoConfig => ({
     },
     plugins: [
         './plugins/withExponea',
-        './plugins/withCustomDebugKeystore',
         'expo-router',
         [
             'expo-splash-screen',
