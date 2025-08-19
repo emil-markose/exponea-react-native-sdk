@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler'; // This needs to be first import according to docs
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import AuthScreen from './screens/AuthScreen';
 import DashboardScreen from './screens/TabNavigation';
 import {Alert, Linking, NativeModules} from 'react-native';
@@ -65,6 +64,9 @@ export default class App extends React.Component<{}, AppState> {
   );
 
   resolveDeeplinkDestination(url: string) {
+    if (url.includes('notification')) {
+      return Screen.Notifications;
+    }
     if (url.includes('flush')) {
       return Screen.Flushing;
     }
@@ -82,7 +84,7 @@ export default class App extends React.Component<{}, AppState> {
       if (url != null) {
         setTimeout(() => {
           console.log(`Link received: ${url}`);
-          Alert.alert('Link received', `Url: ${url}`);
+          //Alert.alert('Link received', `Url: ${url}`);
           const screenToOpen = this.resolveDeeplinkDestination(url);
           if (screenToOpen != null) {
             RootNavigation.navigate(screenToOpen);
@@ -194,15 +196,6 @@ export default class App extends React.Component<{}, AppState> {
       ) : (
           <AuthScreen onStart={this.onStart.bind(this)} />
       );
-    // return (
-    //   <NavigationContainer ref={RootNavigation.navigationRef}>
-    //     {this.state.sdkConfigured ? (
-    //       <DashboardScreen />
-    //     ) : (
-    //       <AuthScreen onStart={this.onStart.bind(this)} />
-    //     )}
-    //   </NavigationContainer>
-    // );
   }
 
   onStart(
@@ -213,7 +206,7 @@ export default class App extends React.Component<{}, AppState> {
   ): void {
     Exponea.setLogLevel(LogLevel.VERBOSE);
     Exponea.checkPushSetup();
-    // Prepare Example Advanced Auth
+    // Prepare Example Advanced Auth. Uncomment below snippet if advanced auth is required.
     // NativeModules.CustomerTokenStorage.configure({
     //   host: baseUrl,
     //   projectToken: projectToken,
