@@ -18,7 +18,10 @@ export default ({config}: ConfigContext): ExpoConfig => ({
     ios: {
         supportsTablet: true,
         bundleIdentifier: 'com.productmadness.CoreTech',
-        googleServicesFile: './GoogleService-Info.plist',
+        appleTeamId: '2SA3QXQJ9F',
+        entitlements: {
+            "aps-environment": "production"
+        },
     },
     android: {
         adaptiveIcon: {
@@ -28,11 +31,6 @@ export default ({config}: ConfigContext): ExpoConfig => ({
         edgeToEdgeEnabled: true,
         package: 'com.productmadness.CoreTech',
         googleServicesFile: './google-services.json',
-    },
-    web: {
-        bundler: 'metro',
-        output: 'static',
-        favicon: './assets/images/favicon.png',
     },
     plugins: [
         './plugins/withExponea',
@@ -52,8 +50,12 @@ export default ({config}: ConfigContext): ExpoConfig => ({
                 android: {
                     useLegacyPackaging: true,
                 },
+                ios: {
+                    useFrameworks: "static",
+                }
             },
         ],
+        "expo-notifications",
     ],
     experiments: {
         typedRoutes: true,

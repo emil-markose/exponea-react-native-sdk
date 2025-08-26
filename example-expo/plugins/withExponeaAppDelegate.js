@@ -4,51 +4,69 @@ function withExponeaAppDelegate(config) {
   return withAppDelegate(config, (cfg) => {
     let { contents } = cfg.modResults;
 
-    // 1. Add UNUserNotificationCenter delegate setup
-    if (
-      contents.includes("didFinishLaunchingWithOptions") &&
-      !contents.includes("UNUserNotificationCenter.current().delegate = self")
-    ) {
+    // Only modify AppDelegate.swift (not ReactNativeDelegate)
+    if (!contents.includes("class AppDelegate")) {
+      return cfg;
+    }
+
+    // Add UNUserNotificationCenter delegate setup
+    if (!contents.includes("UNUserNotificationCenter.current().delegate = self")) {
       contents = contents.replace(
-        /didFinishLaunchingWithOptions[^}]*\{/,
-        (match) =>
-          `${match}\n    UNUserNotificationCenter.current().delegate = self`
+        /(didFinishLaunchingWithOptions[^{]+\{)/,
+        `$1
+    UNUserNotificationCenter.current().delegate = self
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+      if let error = error {
+        print("Permission denied: \\(error.localizedDescription)")
+      } else {
+        print("Permission granted, calling registerForRemoteNotifications")
+        DispatchQueue.main.async {
+          application.registerForRemoteNotifications()
+        }
+      }
+    }`
       );
     }
 
-    // 2. Ensure didRegisterForRemoteNotificationsWithDeviceToken exists
+    // Insert methods strictly inside AppDelegate
+    const appDelegateBlock = /(class AppDelegate[^{]+\{)([\s\S]*?)(\n\})/;
+
     if (!contents.includes("didRegisterForRemoteNotificationsWithDeviceToken")) {
-      const insertionPoint = contents.lastIndexOf("}");
-      const method = `
-  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+      contents = contents.replace(appDelegateBlock,
+        `$1$2
+
+  public override func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    print("Successfully registered for notifications! \\(deviceToken)")
     Exponea.handlePushNotificationToken(deviceToken)
-  }
-`;
-      contents =
-        contents.slice(0, insertionPoint) + method + contents.slice(insertionPoint);
+  }$3`
+      );
     }
 
-    // 3. Ensure didReceiveRemoteNotification exists
     if (!contents.includes("didReceiveRemoteNotification")) {
-      const insertionPoint = contents.lastIndexOf("}");
-      const method = `
-  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+      contents = contents.replace(appDelegateBlock,
+        `$1$2
+
+  public override func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
                    fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     Exponea.handlePushNotificationOpened(userInfo: userInfo)
     completionHandler(.newData)
-  }
-`;
-      contents =
-        contents.slice(0, insertionPoint) + method + contents.slice(insertionPoint);
+  }$3`
+      );
     }
 
-    // 4. Ensure userNotificationCenter delegate is added
-    if (!contents.includes("didReceiveNotificationResponse")) {
-      const lastBraceIndex = contents.lastIndexOf("}");
-      const before = contents.slice(0, lastBraceIndex + 1);
-      const after = contents.slice(lastBraceIndex + 1);
+    if (!contents.includes("didFailToRegisterForRemoteNotificationsWithError")) {
+      contents = contents.replace(appDelegateBlock,
+        `$1$2
 
-      const extensionBlock = `
+  public override func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
+    print("Failed to register for notifications: \\(error.localizedDescription)")
+  }$3`
+      );
+    }
+
+    // Add UNUserNotificationCenterDelegate extension
+    if (!contents.includes("extension AppDelegate: UNUserNotificationCenterDelegate")) {
+      contents += `
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
   public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
@@ -58,7 +76,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   }
 }
 `;
-      contents = before + extensionBlock + after;
     }
 
     cfg.modResults.contents = contents;

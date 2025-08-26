@@ -3,7 +3,7 @@
     "project_number": "467835628111",
     "firebase_url": "https://test-72c95.firebaseio.com",
     "project_id": "test-72c95",
-    "storage_bucket": "test-72c95.appspot.com"
+    "storage_bucket": "test-72c95.firebasestorage.app"
   },
   "client": [
     {
@@ -13,27 +13,58 @@
           "package_name": "com.productmadness.CoreTech"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "467835628111-6d5k10uqveiqsihao5565dk28mua06cv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDoUgl6VDnxL2zRbInAHdGNIfakcE8j4as"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467835628111-f9gci9ipandf9p2ta1mcjppgjhefkvu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "467835628111-mp06rk6m8pr6k4a7jbrkhqtden9qt69f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.productmadness.CoreTech"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467835628111:android:c61b34f27191eff564583a",
+        "android_client_info": {
+          "package_name": "com.productmadness.android.socialaccount.socialaccountdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoUgl6VDnxL2zRbInAHdGNIfakcE8j4as"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467835628111-f9gci9ipandf9p2ta1mcjppgjhefkvu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "467835628111-mp06rk6m8pr6k4a7jbrkhqtden9qt69f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.productmadness.CoreTech"
+              }
+            }
+          ]
         }
       }
     },
@@ -44,27 +75,27 @@
           "package_name": "com.productmadness.cashmancasino"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "467835628111-6d5k10uqveiqsihao5565dk28mua06cv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDoUgl6VDnxL2zRbInAHdGNIfakcE8j4as"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467835628111-f9gci9ipandf9p2ta1mcjppgjhefkvu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "467835628111-mp06rk6m8pr6k4a7jbrkhqtden9qt69f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.productmadness.CoreTech"
+              }
+            }
+          ]
         }
       }
     },
@@ -75,61 +106,27 @@
           "package_name": "com.productmadness.hovmobile"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "467835628111-6d5k10uqveiqsihao5565dk28mua06cv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDoUgl6VDnxL2zRbInAHdGNIfakcE8j4as"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1096369378963:android:4d37d3a555ec5c70",
-        "android_client_info": {
-          "package_name": "com.productmadness.lightninglink"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1096369378963-haftcjjkiuh94hd6kh3tim0toon2u4b3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA83tls7uAnAQY9G8nR8wFp94vDqJIGk_o"
-        },
-        {
-          "current_key": "AIzaSyCW9QiHjpOJOXksi7eS0VqCnKVn2gzmaEw"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467835628111-f9gci9ipandf9p2ta1mcjppgjhefkvu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "467835628111-mp06rk6m8pr6k4a7jbrkhqtden9qt69f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.productmadness.CoreTech"
+              }
+            }
+          ]
         }
       }
     }
