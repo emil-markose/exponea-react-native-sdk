@@ -5,6 +5,7 @@ import DashboardScreen from './screens/TabNavigation';
 import {Alert, Linking, NativeModules} from 'react-native';
 import Exponea from 'react-native-exponea-sdk';
 import PreloadingScreen from './screens/PreloadingScreen';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   InAppMessage,
   InAppMessageButton,
@@ -79,7 +80,7 @@ export default class App extends React.Component<{}, AppState> {
     return null;
   }
 
-  componentDidMount(): void {
+  async componentDidMount() {
     const openLink = (url: string | null) => {
       if (url != null) {
         setTimeout(() => {
@@ -191,10 +192,14 @@ export default class App extends React.Component<{}, AppState> {
       return <PreloadingScreen />;
     }
 
-      return this.state.sdkConfigured ? (
-          <DashboardScreen />
-      ) : (
-          <AuthScreen onStart={this.onStart.bind(this)} />
+      return (
+          <NavigationContainer ref={RootNavigation.navigationRef}>
+              {this.state.sdkConfigured ? (
+                  <DashboardScreen />
+              ) : (
+                  <AuthScreen onStart={this.onStart.bind(this)}/>
+              )}
+          </NavigationContainer>
       );
   }
 
@@ -253,7 +258,7 @@ export default class App extends React.Component<{}, AppState> {
       advancedAuthEnabled: (advancedAuthKey || '').trim().length !== 0,
       inAppContentBlockPlaceholdersAutoLoad: ['example_top'],
       ios: {
-        appGroup: 'group.com.exponea.ExponeaSDK-Example2',
+        appGroup: 'group.com.productmadness.CoreTech',
       },
       android: {
         pushIconResourceName: 'push_icon',
