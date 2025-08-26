@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, ScrollView, Button, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import ExponeaButton from "@/src/components/ExponeaButton";
+import ExponeaButton from '../components/ExponeaButton';
 
 interface State {
     logs: string[];
@@ -19,7 +19,6 @@ export default class NotificationScreen extends React.Component<{}, State> {
     };
 
     getPushToken = async () => {
-        // Placeholder method to be implemented later
         this.addLog('getPushToken called');
     };
 
@@ -39,7 +38,6 @@ export default class NotificationScreen extends React.Component<{}, State> {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                {/* Console area */}
                 <ScrollView style={styles.console} contentContainerStyle={{ padding: 10 }}>
                     {this.state.logs.map((log, index) => (
                         <Text key={index} style={styles.logText}>
@@ -47,18 +45,10 @@ export default class NotificationScreen extends React.Component<{}, State> {
                         </Text>
                     ))}
                 </ScrollView>
-
-                {/* Buttons area */}
                 <View style={styles.buttonColumn}>
-                    <View style={styles.buttonWrapper}>
-                        <ExponeaButton title="Get Token" onPress={this.getPushToken} />
-                    </View>
-                    <View style={styles.buttonWrapper}>
-                        <ExponeaButton title="Copy Token" onPress={this.copyTokenToClipboard} />
-                    </View>
-                    <View style={styles.buttonWrapper}>
-                        <ExponeaButton title="Clear Logs" onPress={this.clearLogs} />
-                    </View>
+                    <ExponeaButton title="Get Token" onPress={this.getPushToken} />
+                    <ExponeaButton title="Copy Token" onPress={this.copyTokenToClipboard} />
+                    <ExponeaButton title="Clear Logs" onPress={this.clearLogs} />
                 </View>
             </SafeAreaView>
         );
