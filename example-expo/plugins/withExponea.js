@@ -14,11 +14,11 @@ function withExponea(config) {
   return withPlugins(config, [
     withExponeaBuildGradle,
     withExponeaAndroidManifest,
+    withExponeaAndroidMessageService,
+    withCustomDebugKeystore,
     withExponeaBridgingHeader,
     withExponeaAppDelegate,
-    withExponeaAndroidMessageService,
     withExponeaIosAppDelegateH,
-    withCustomDebugKeystore,
   ]);
 }
 

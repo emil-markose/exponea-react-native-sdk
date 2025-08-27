@@ -4,7 +4,6 @@ function withExponeaAppDelegate(config) {
   return withAppDelegate(config, (cfg) => {
     let { contents } = cfg.modResults;
 
-    // Only modify AppDelegate.swift (not ReactNativeDelegate)
     if (!contents.includes("class AppDelegate")) {
       return cfg;
     }
@@ -28,7 +27,7 @@ function withExponeaAppDelegate(config) {
       );
     }
 
-    // Insert methods strictly inside AppDelegate
+    // Patch AppDelegate to add the required methods for notification
     const appDelegateBlock = /(class AppDelegate[^{]+\{)([\s\S]*?)(\n\})/;
 
     if (!contents.includes("didRegisterForRemoteNotificationsWithDeviceToken")) {
@@ -69,10 +68,22 @@ function withExponeaAppDelegate(config) {
       contents += `
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-  public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
-                              withCompletionHandler completionHandler: @escaping () -> Void) {
+  public func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                     didReceive response: UNNotificationResponse,
+                                     withCompletionHandler completionHandler: @escaping () -> Void) {
     Exponea.handlePushNotificationOpened(with: response)
     completionHandler()
+  }
+
+  // This ensures notifications also show when the app is in the foreground
+  public func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                     willPresent notification: UNNotification,
+                                     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    if #available(iOS 14.0, *) {
+      completionHandler([.banner])
+    } else {
+      completionHandler([.alert])
+    }
   }
 }
 `;

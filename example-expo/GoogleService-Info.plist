@@ -19,11 +19,11 @@
 	<key>PROJECT_ID</key>
 	<string>test-72c95</string>
 	<key>STORAGE_BUCKET</key>
-	<string>test-72c95.appspot.com</string>
+	<string>test-72c95.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true></true>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
 	<true></true>
 	<key>IS_GCM_ENABLED</key>
@@ -32,8 +32,6 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:467835628111:ios:35e3b3e0a4dd281a64583a</string>
-	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
-	<false/>
 	<key>DATABASE_URL</key>
 	<string>https://test-72c95.firebaseio.com</string>
 </dict>

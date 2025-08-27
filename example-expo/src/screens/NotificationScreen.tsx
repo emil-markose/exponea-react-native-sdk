@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import ExponeaButton from '../components/ExponeaButton';
+import Exponea from "../../../lib";
 
 interface State {
     logs: string[];
@@ -15,11 +16,21 @@ export default class NotificationScreen extends React.Component<{}, State> {
     };
 
     addLog = (message: string) => {
+        console.log(message);
         this.setState(prev => ({ logs: [...prev.logs, message] }));
     };
 
+    getAuthorization = async () => {
+        this.addLog('Requesting authorization');
+        Exponea.requestPushAuthorization()
+            .then(accepted => {
+                this.addLog(`User has ${accepted ? 'accepted': 'rejected'} push notifications.`)
+            })
+            .catch(error => this.addLog(error.message))
+    }
     getPushToken = async () => {
-        this.addLog('getPushToken called');
+        this.addLog('Retrieving push token..');
+        this.addLog('Bridge not implemented. Failed to retrieve push token');
     };
 
     copyTokenToClipboard = async () => {
@@ -46,6 +57,7 @@ export default class NotificationScreen extends React.Component<{}, State> {
                     ))}
                 </ScrollView>
                 <View style={styles.buttonColumn}>
+                    <ExponeaButton title="Request auth" onPress={this.getAuthorization} />
                     <ExponeaButton title="Get Token" onPress={this.getPushToken} />
                     <ExponeaButton title="Copy Token" onPress={this.copyTokenToClipboard} />
                     <ExponeaButton title="Clear Logs" onPress={this.clearLogs} />
