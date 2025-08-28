@@ -8,6 +8,7 @@ const {
   withExponeaIosAppDelegateH = require("./withExponeaIosAppDelegateH"),
   withExponeaAndroidManifest = require("./withExponeaAndroidManifest"),
   withCustomDebugKeystore = require("./withCustomDebugKeystore"),
+  withPushTokenBridge = require("./withPushTokenBridge"),
   
 } = require("@expo/config-plugins");
 function withExponea(config) {
@@ -19,6 +20,7 @@ function withExponea(config) {
     withExponeaBridgingHeader,
     withExponeaAppDelegate,
     withExponeaIosAppDelegateH,
+    withPushTokenBridge,
   ]);
 }
 

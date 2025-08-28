@@ -9,36 +9,11 @@ const pbxprojPath = path.join(
   iosDir,
   "BloomReachPoC.xcodeproj/project.pbxproj" 
 );
-
-function gitClean() {
-  console.log("Cleaning entire repo...");
-  try {
-    execSync(
-      `git clean -dfx`,
-      {stdio: "inherit"}
-    );
-  } catch (err) {
-    console.error("Cleaning failed", err.message);
-    process.exit(1);
-  }
-}
-function sdkBuild() {
-  console.log("Building SDK...");
-  try {
-    execSync(
-      ``,
-      {stdio: "inherit"}
-    );
-  } catch (err) {
-    console.error("Failed to build SDK", err.message);
-    process.exit(1);
-  }
-}
 function prebuild() {
   console.log("Prebuild...");
   try {
     execSync(
-      `CI=1 npx expo prebuild --clean`,
+      `CI=1 npx expo prebuild --clean --platform ios`,
       {stdio: "inherit"}
     );
   } catch (err) {

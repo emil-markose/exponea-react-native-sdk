@@ -18,9 +18,13 @@ function withExponeaAppDelegate(config) {
       if let error = error {
         print("Permission denied: \\(error.localizedDescription)")
       } else {
-        print("Permission granted, calling registerForRemoteNotifications")
-        DispatchQueue.main.async {
-          application.registerForRemoteNotifications()
+        if (granted) {
+          print("Permission granted, calling registerForRemoteNotifications")
+          DispatchQueue.main.async {
+            application.registerForRemoteNotifications()
+          }
+        } else {
+          print("Permission denied. Notification was not registered")
         }
       }
     }`
@@ -37,6 +41,9 @@ function withExponeaAppDelegate(config) {
   public override func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     print("Successfully registered for notifications! \\(deviceToken)")
     Exponea.handlePushNotificationToken(deviceToken)
+    
+    let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+    NotificationCenter.default.post(name: .didReceiveDeviceToken, object: tokenString)
   }$3`
       );
     }
@@ -59,6 +66,9 @@ function withExponeaAppDelegate(config) {
 
   public override func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
     print("Failed to register for notifications: \\(error.localizedDescription)")
+    
+    let tokenString = ""
+    NotificationCenter.default.post(name: .didReceiveDeviceToken, object: tokenString)
   }$3`
       );
     }
